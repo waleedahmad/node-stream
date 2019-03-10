@@ -1,0 +1,12 @@
+.idea
+public
+node_modules
+npm-debug.logs
+
+#ignore sessions but keep folder
+sessions/*
+!sessions/.gitkeep
+
+# ignore media but keep folder
+server/media/*
+!server/media/.gitkeep
