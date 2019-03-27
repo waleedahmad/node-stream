@@ -12,16 +12,6 @@ export default class Root extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {
-            videoJsOptions : {
-                autoplay: true,
-                controls: true,
-                sources: [{
-                    src: 'http://127.0.0.1:8888/live/lorde/index.m3u8',
-                    type: 'application/x-mpegURL'
-                }]
-            }
-        }
     }
 
     render(){
@@ -33,9 +23,10 @@ export default class Root extends React.Component {
                         <LiveStreams  {...props} />
                     )}/>
 
-                    <Route exact path="/stream" render={props => (
-                        <VideoPlayer {...props} { ...this.state.videoJsOptions } />
+                    <Route exact path="/stream/:username" render={(props) => (
+                        <VideoPlayer {...props}/>
                     )}/>
+
                     <Route exact path="/settings" render={props => (
                         <Settings {...props} />
                     )}/>
