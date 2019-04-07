@@ -3,6 +3,9 @@ public
 node_modules
 npm-debug.logs
 
+server/thumbnails/*
+!server/thumbnails/.gitkeep
+
 #ignore sessions but keep folder
 sessions/*
 !sessions/.gitkeep

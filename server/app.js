@@ -17,6 +17,7 @@ mongoose.connect('mongodb://127.0.0.1/nodeStream' , { useNewUrlParser: true });
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
 app.use(express.static('public'));
+app.use('/thumbnails', express.static('server/thumbnails'));
 app.use(flash());
 
 // app.use(require('morgan')('combined'));
