@@ -10,7 +10,8 @@ const express = require('express'),
     flash = require('connect-flash'),
     port = 3333,
     app = express(),
-    node_media_server = require('./media_server');
+    node_media_server = require('./media_server'),
+    thumbnail_generator = require('./cron/thumbnails');
 
 mongoose.connect('mongodb://127.0.0.1/nodeStream' , { useNewUrlParser: true });
 
@@ -20,7 +21,6 @@ app.use(express.static('public'));
 app.use('/thumbnails', express.static('server/thumbnails'));
 app.use(flash());
 
-// app.use(require('morgan')('combined'));
 app.use(require('cookie-parser')());
 app.use(bodyParse.urlencoded({extended: true}));
 app.use(bodyParse.json({extended: true}));
@@ -54,3 +54,4 @@ app.get('*', middleware.ensureLoggedIn(), (req, res) => {
 
 app.listen(port, () => console.log(`App listening on ${port}!`));
 node_media_server.run();
+thumbnail_generator.start();

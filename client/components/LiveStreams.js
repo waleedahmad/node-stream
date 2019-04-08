@@ -17,7 +17,7 @@ export default class Navbar extends React.Component {
         this.getLiveStreams();
     }
 
-    getLiveStreams(){
+    getLiveStreams() {
         axios.get('http://127.0.0.1:8888/api/streams')
             .then(res => {
                 let streams = res.data;
@@ -27,14 +27,14 @@ export default class Navbar extends React.Component {
             });
     }
 
-    getStreamsInfo(live_streams){
-        axios.get('/streams/info' , {
-            params : {
-                streams : live_streams
+    getStreamsInfo(live_streams) {
+        axios.get('/streams/info', {
+            params: {
+                streams: live_streams
             }
-        }).then( res => {
+        }).then(res => {
             this.setState({
-                live_streams : res.data
+                live_streams: res.data
             }, () => {
                 console.log(this.state);
             });
@@ -42,25 +42,25 @@ export default class Navbar extends React.Component {
     }
 
     render() {
-        let streams = this.state.live_streams.map((stream , index) => {
+        let streams = this.state.live_streams.map((stream, index) => {
             return (
                 <div className="stream col-xs-12 col-sm-12 col-md-3 col-lg-4" key={index}>
                     <span className="live-label">LIVE</span>
-                    <Link to={'/stream/' +  stream.username}>
+                    <Link to={'/stream/' + stream.username}>
                         <div className="stream-thumbnail">
                             <img src={'/thumbnails/' + stream.stream_key + '.png'}/>
                         </div>
                     </Link>
 
                     <span className="username">
-                        <Link to={'/stream/' +  stream.username}>
+                        <Link to={'/stream/' + stream.username}>
                             {stream.username}
                         </Link>
                     </span>
                 </div>
             );
         });
-        
+
         return (
             <div className="container mt-5">
                 <h4>Live Streams</h4>
