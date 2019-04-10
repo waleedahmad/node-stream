@@ -5,8 +5,7 @@ import LiveStreams from './LiveStreams';
 import Settings from './Settings';
 
 import VideoPlayer from './VideoPlayer';
-import createBrowserHistory from "history/createBrowserHistory";
-const customHistory = createBrowserHistory();
+const customHistory = require("history").createBrowserHistory();
 
 export default class Root extends React.Component {
 
