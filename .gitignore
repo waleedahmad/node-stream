@@ -1,7 +1,7 @@
 .idea
 public
 node_modules
-npm-debug.logs
+npm-debug.log
 
 server/thumbnails/*
 !server/thumbnails/.gitkeep
