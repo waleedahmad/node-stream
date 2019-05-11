@@ -2,7 +2,7 @@ const config = {
     server: {
         secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc'
     },
-    node_media_server: {
+    rtmp_server: {
         rtmp: {
             port: 1935,
             chunk_size: 60000,

@@ -2,7 +2,7 @@ const CronJob = require('cron').CronJob,
     request = require('request'),
     helpers = require('../helpers/helpers'),
     config = require('../config/default'),
-    port = config.node_media_server.http.port;
+    port = config.rtmp_server.http.port;
 
 const job = new CronJob('*/5 * * * * *', function () {
     request

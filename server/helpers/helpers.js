@@ -1,5 +1,6 @@
 const spawn = require('child_process').spawn,
-    cmd = '/usr/bin/ffmpeg';
+    config = require('../config/default'),
+    cmd = config.rtmp_server.trans.ffmpeg;
 
 const generateStreamThumbnail = (stream_key) => {
     const args = [
