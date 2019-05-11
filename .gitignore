@@ -7,8 +7,8 @@ server/thumbnails/*
 !server/thumbnails/.gitkeep
 
 #ignore sessions but keep folder
-sessions/*
-!sessions/.gitkeep
+server/sessions/*
+!server/sessions/.gitkeep
 
 # ignore media but keep folder
 server/media/*

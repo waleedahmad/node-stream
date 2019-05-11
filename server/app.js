@@ -26,10 +26,10 @@ app.use(bodyParse.urlencoded({extended: true}));
 app.use(bodyParse.json({extended: true}));
 
 app.use(Session({
-    store: new FileStore(),
+    store: new FileStore({
+        path : './server/sessions'
+    }),
     secret: config.server.secret,
-    resave: true,
-    saveUninitialized: true,
     maxAge : Date().now + (60 * 1000 * 30)
 }));
 
