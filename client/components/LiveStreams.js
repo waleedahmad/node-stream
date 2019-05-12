@@ -2,6 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
 import './LiveStreams.scss';
+import config from '../../server/config/default';
 
 
 export default class Navbar extends React.Component {
@@ -18,7 +19,7 @@ export default class Navbar extends React.Component {
     }
 
     getLiveStreams() {
-        axios.get('http://127.0.0.1:8888/api/streams')
+        axios.get('http://127.0.0.1:' + config.rtmp_server.http.port + '/api/streams')
             .then(res => {
                 let streams = res.data;
                 if (typeof (streams['live'] !== 'undefined')) {

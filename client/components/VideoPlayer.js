@@ -1,35 +1,37 @@
 import React from 'react';
 import videojs from 'video.js'
 import axios from 'axios';
+import config from '../../server/config/default';
+
 
 export default class VideoPlayer extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
-            stream : false,
-            videoJsOptions :  null
+            stream: false,
+            videoJsOptions: null
         }
     }
 
     componentDidMount() {
 
         axios.get('/user', {
-            params : {
-                username : this.props.match.params.username
+            params: {
+                username: this.props.match.params.username
             }
-        }).then( res => {
+        }).then(res => {
             this.setState({
-                stream : true,
-                videoJsOptions : {
+                stream: true,
+                videoJsOptions: {
                     autoplay: false,
                     controls: true,
                     sources: [{
-                        src: 'http://127.0.0.1:8888/live/' + res.data.stream_key + '/index.m3u8',
+                        src: 'http://127.0.0.1:' + config.rtmp_server.http.port + '/live/' + res.data.stream_key + '/index.m3u8',
                         type: 'application/x-mpegURL'
                     }],
-                    fluid : true,
+                    fluid: true,
                 }
             }, () => {
                 this.player = videojs(this.videoNode, this.state.videoJsOptions, function onPlayerReady() {
@@ -53,7 +55,7 @@ export default class VideoPlayer extends React.Component {
                         <div data-vjs-player>
                             <video ref={node => this.videoNode = node} className="video-js vjs-big-play-centered"/>
                         </div>
-                    ) : ' Loading ... ' }
+                    ) : ' Loading ... '}
                 </div>
             </div>
         )
