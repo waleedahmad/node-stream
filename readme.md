@@ -1,6 +1,6 @@
 ### NodeStream
 
-See complete tutorial [here](https://www.google.com).
+See complete tutorial [here](https://quantizd.com/building-live-streaming-app-with-node-js-and-react/).
 
 
 #### Install ffmpeg for RTMP to HLS transcoding 
