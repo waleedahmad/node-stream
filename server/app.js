@@ -8,7 +8,7 @@ const express = require('express'),
     FileStore = require('session-file-store')(Session),
     config = require('./config/default'),
     flash = require('connect-flash'),
-    port = 3333,
+    port = config.server.port,
     app = express(),
     node_media_server = require('./media_server'),
     thumbnail_generator = require('./cron/thumbnails');
@@ -30,7 +30,9 @@ app.use(Session({
         path : 'server/sessions'
     }),
     secret: config.server.secret,
-    maxAge : Date().now + (60 * 1000 * 30)
+    maxAge : Date().now + (60 * 1000 * 30),
+    resave : true,
+    saveUninitialized : false,
 }));
 
 app.use(passport.initialize());
