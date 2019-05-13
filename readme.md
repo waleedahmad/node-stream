@@ -28,7 +28,8 @@ cd nodeStream && nano /server/config/default.js
 
 const config = {
     server: {
-        secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc'
+        secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
+        port : 3333
     },
     rtmp_server: {
         rtmp: {
