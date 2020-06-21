@@ -1,3 +1,5 @@
+/* eslint-disable no-prototype-builtins */
+/* eslint-disable no-constant-condition */
 const CronJob = require('cron').CronJob,
     request = require('request'),
     helpers = require('../helpers/helpers'),

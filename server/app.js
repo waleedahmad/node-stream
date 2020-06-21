@@ -1,26 +1,31 @@
+/* eslint-disable no-undef */
 const AWS = require('aws-sdk'),
-  config = require('./config/default');
+    config = require('./config/default');
 
 if (config.aws.profile !== 'default') {
-  const globalCredentials = new AWS.SharedIniFileCredentials({ profile: config.aws.profile });
-  AWS.config.credentials = globalCredentials;
+    const globalCredentials = new AWS.SharedIniFileCredentials({
+        profile: config.aws.profile
+    });
+    AWS.config.credentials = globalCredentials;
 }
 
 const express = require('express'),
-  path = require('path'),
-  Session = require('express-session'),
-  bodyParse = require('body-parser'),
-  passport = require('./auth/passport'),
-  mongoose = require('mongoose'),
-  middleware = require('connect-ensure-login'),
-  FileStore = require('session-file-store')(Session),
-  flash = require('connect-flash'),
-  port = config.server.port,
-  app = express(),
-  node_media_server = require('./media_server'),
-  thumbnail_generator = require('./cron/thumbnails');
+    path = require('path'),
+    Session = require('express-session'),
+    bodyParse = require('body-parser'),
+    passport = require('./auth/passport'),
+    mongoose = require('mongoose'),
+    middleware = require('connect-ensure-login'),
+    FileStore = require('session-file-store')(Session),
+    flash = require('connect-flash'),
+    port = config.server.port,
+    app = express(),
+    node_media_server = require('./media_server'),
+    thumbnail_generator = require('./cron/thumbnails');
 
-mongoose.connect('mongodb://127.0.0.1/nodeStream', { useNewUrlParser: true });
+mongoose.connect('mongodb://127.0.0.1/nodeStream', {
+    useNewUrlParser: true
+});
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
@@ -29,17 +34,21 @@ app.use('/thumbnails', express.static('server/thumbnails'));
 app.use(flash());
 
 app.use(require('cookie-parser')());
-app.use(bodyParse.urlencoded({ extended: true }));
-app.use(bodyParse.json({ extended: true }));
+app.use(bodyParse.urlencoded({
+    extended: true
+}));
+app.use(bodyParse.json({
+    extended: true
+}));
 
 app.use(Session({
-  store: new FileStore({
-    path: 'server/sessions'
-  }),
-  secret: config.server.secret,
-  maxAge: Date().now + (60 * 1000 * 30),
-  resave: true,
-  saveUninitialized: false,
+    store: new FileStore({
+        path: 'server/sessions'
+    }),
+    secret: config.server.secret,
+    maxAge: Date().now + (60 * 1000 * 30),
+    resave: true,
+    saveUninitialized: false,
 }));
 
 app.use(passport.initialize());
@@ -53,12 +62,12 @@ app.use('/streams', require('./routes/streams'));
 app.use('/user', require('./routes/user'));
 
 app.get('/logout', (req, res) => {
-  req.logout();
-  return res.redirect('/login');
+    req.logout();
+    return res.redirect('/login');
 });
 
 app.get('*', middleware.ensureLoggedIn(), (req, res) => {
-  res.render('index');
+    res.render('index');
 });
 
 app.listen(port, () => console.log(`App listening on ${port}!`));

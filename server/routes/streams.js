@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 const express = require('express'),
     router = express.Router(),
     User = require('../database/Schema').User;

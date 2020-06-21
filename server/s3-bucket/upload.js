@@ -4,42 +4,55 @@ const httpConfig = require('../config/default').rtmp_server.http;
 
 
 class S3BucketUploader {
-  constructor(bucketName) {
-    this.bucketName = bucketName;
-    this.bucketService = new AWS.S3({ config: AWS.config.credentials });
-  }
-
-  async uploadMp4FromStream(streamFolder, id) {
-    const mp4FilePath = await this.getMp4FilePath(streamFolder);
-    const s3UrlPath = await this.uploadFile(mp4FilePath, id);
-    fs.rmdirSync(`${httpConfig.mediaroot}${streamFolder}`, { recursive: true });
-    return s3UrlPath;
-  }
-
-  async getMp4FilePath(streamFolder) {
-    const files = fs.readdirSync(`${httpConfig.mediaroot}${streamFolder}`);
-    const mp4Files = files.filter((file) => file.match(/.*\.(mp4)/ig));
-    const mp4File = mp4Files.reduce((a, b) => {
-      return new Date(a) > new Date(b) ? a : b;
-    });
-    return `${httpConfig.mediaroot}${streamFolder}/${mp4File}`;
-  }
-
-  async uploadFile(filePath, id) {
-    try {
-      const fileStream = await this.readFileStream(filePath);
-      const putRequest = { Bucket: this.bucketName, Key: `videos/${id}.mp4`, Body: fileStream };
-      const response = await this.bucketService.upload(putRequest).promise();
-      return response.Location;
-    } finally {
-      fs.unlinkSync(filePath);
+    constructor(bucketName) {
+        this.bucketName = bucketName;
+        this.bucketService = new AWS.S3({
+            config: AWS.config.credentials
+        });
     }
-  }
 
-  async readFileStream(filePath) {
-    const data = fs.readFileSync(filePath);
-    return data;
-  }
+    async uploadStreamFolder(streamFolder) {
+        const files = await this.getSortedFilesByDate(streamFolder);
+        let savedS3Urls = [];
+        for (let file of files) {
+            const s3UrlPath = await this.uploadFile(file);
+            savedS3Urls.push(s3UrlPath);
+        }
+        return savedS3Urls;
+    }
+
+    async getSortedFilesByDate(streamFolder) {
+        const relativeFolderPath = `${httpConfig.mediaroot}${streamFolder}`;
+        const s3Root = streamFolder.replace('/live/', '');
+        const fileNames = fs.readdirSync(relativeFolderPath);
+        const files = fileNames.map((filename) => {
+            const relativePath =  `${relativeFolderPath}/${filename}`;
+            const fileStream = this.readFileStream(relativePath);
+            const dateModified = fs.statSync(relativePath);
+            return {
+                fileStream,
+                s3version: `${s3Root}/${filename}`,
+                path: relativePath,
+                dateModified: dateModified.mtime.getTime(),
+            };
+        });
+        return files.sort((a, b)  => a.dateModified - b.dateModified );
+    }
+
+    async uploadFile(file) {
+        const putRequest = {
+            Bucket: this.bucketName,
+            Key: file.s3version,
+            Body: file.fileStream,
+        };
+        const response = await this.bucketService.upload(putRequest).promise();
+        console.log(`Successfully saved to ${response.Location}`);
+        return response.Location;
+    }
+
+    readFileStream(filePath) {
+        return fs.readFileSync(filePath);
+    }
 }
 
 module.exports = S3BucketUploader;
