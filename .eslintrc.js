@@ -225,7 +225,8 @@ module.exports = {
             "any"
         ],
         "object-curly-newline": "error",
-        "object-curly-spacing": "off",
+        "object-curly-spacing": ["error", "always"],
+        "object-property-newline": ["error", { "allowAllPropertiesOnSameLine": true }],
         "object-shorthand": "off",
         "one-var": "off",
         "one-var-declaration-per-line": "error",

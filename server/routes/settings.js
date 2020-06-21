@@ -6,7 +6,7 @@ const express = require('express'),
 router.get('/stream_key',
     require('connect-ensure-login').ensureLoggedIn(),
     (req, res) => {
-        User.findOne({email: req.user.email}, (err, user) => {
+        User.findOne({ email: req.user.email }, (err, user) => {
             if (!err) {
                 res.json({
                     stream_key: user.stream_key

@@ -17,7 +17,7 @@ passport.use('localRegister', new LocalStrategy({
     passReqToCallback: true
 },
 (req, email, password, done) => {
-    User.findOne({$or: [{email: email}, {username: req.body.username}]},  (err, user) => {
+    User.findOne({ $or: [{ email: email }, { username: req.body.username }] },  (err, user) => {
         if (err)
             return done(err);
         if (user) {
@@ -51,7 +51,7 @@ passport.use('localLogin', new LocalStrategy({
 },
 (req, email, password, done) => {
 
-    User.findOne({'email': email}, (err, user) => {
+    User.findOne({ 'email': email }, (err, user) => {
         if (err)
             return done(err);
 

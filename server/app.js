@@ -23,9 +23,7 @@ const express = require('express'),
     node_media_server = require('./media_server'),
     thumbnail_generator = require('./cron/thumbnails');
 
-mongoose.connect('mongodb://127.0.0.1/nodeStream', {
-    useNewUrlParser: true
-});
+mongoose.connect('mongodb://127.0.0.1/nodeStream', { useNewUrlParser: true });
 
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, './views'));
@@ -34,12 +32,8 @@ app.use('/thumbnails', express.static('server/thumbnails'));
 app.use(flash());
 
 app.use(require('cookie-parser')());
-app.use(bodyParse.urlencoded({
-    extended: true
-}));
-app.use(bodyParse.json({
-    extended: true
-}));
+app.use(bodyParse.urlencoded({ extended: true }));
+app.use(bodyParse.json({ extended: true }));
 
 app.use(Session({
     store: new FileStore({
