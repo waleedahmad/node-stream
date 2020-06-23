@@ -1,7 +1,13 @@
+/* eslint-disable no-undef */
 const config = {
     aws: {
-        profile: 'darkspot-admin',
+        profile: 'default',
         s3BucketName: 'upwork-bucket',
+        mediaStore: {
+            region: 'ap-southeast-2',
+            containerName: 'upwork-mediastore',
+            endpointPrefix: 'epvpomlxavtvraaw',
+        },
     },
     server: {
         secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
@@ -21,7 +27,7 @@ const config = {
             allow_origin: '*'
         },
         trans: {
-            ffmpeg: '/usr/bin/ffmpeg',
+            ffmpeg: process.platform == 'win32' ? 'D:\\ffmpeg\\bin\\ffmpeg.exe' : '/usr/bin/ffmpeg',
             tasks: [
                 {
                     app: 'live',

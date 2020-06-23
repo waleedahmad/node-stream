@@ -16,6 +16,7 @@
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.2.1",
+    "chokidar": "^3.4.0",
     "config": "^3.0.1",
     "connect-ensure-login": "^0.1.1",
     "connect-flash": "^0.1.1",
