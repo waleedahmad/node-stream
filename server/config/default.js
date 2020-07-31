@@ -2,7 +2,7 @@ const config = {
     server: {
         secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
         port: '3333',
-        host: 'localhost',
+        host: '192.168.11.239',
     },
     mongodb: {
         host: 'localhost',
