@@ -7,7 +7,6 @@ router.get('/info',
     (req, res) => {
         if(req.query.streams){
             let streams = JSON.parse(req.query.streams);
-            console.log(streams);
             let query = {$or: []};
             for (let stream in streams) {
                 if (!streams.hasOwnProperty(stream)) continue;
