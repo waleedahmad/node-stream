@@ -1,7 +1,15 @@
 const config = {
     server: {
         secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
-        port : 3333
+        port: '3333',
+        host: 'localhost',
+    },
+    mongodb: {
+        host: 'localhost',
+        port: '27017',
+        userName: 'admin',
+        password: 'admin',
+
     },
     rtmp_server: {
         rtmp: {

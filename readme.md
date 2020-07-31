@@ -28,6 +28,16 @@ $ ffmpeg --version
  
  [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
+#### Setup mongodb with docker
+
+```
+docker run -d -it --name mongodb \
+   -p 27017:27017 \
+   -e MONGO_INITDB_ROOT_USERNAME=admin \
+   -e MONGO_INITDB_ROOT_PASSWORD=admin \
+   mongo
+```
+
 #### Configuration
 Change ffmpeg path in node media server configuration to your
 own installed path.
@@ -40,7 +50,15 @@ cd nodeStream && nano /server/config/default.js
 const config = {
     server: {
         secret: 'kjVkuti2xAyF3JGCzSZTk0YWM5JhI9mgQW4rytXc',
-        port : 3333
+        port: '3333',
+        host: 'localhost',
+    },
+    mongodb: {
+        host: 'localhost',
+        port: '27017',
+        userName: 'admin',
+        password: 'admin',
+
     },
     rtmp_server: {
         rtmp: {
