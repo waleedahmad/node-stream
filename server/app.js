@@ -54,6 +54,6 @@ app.get('*', middleware.ensureLoggedIn(), (req, res) => {
     res.render('index');
 });
 
-app.listen(port, () => console.log(`App listening on ${port}!`));
+app.listen(port, () => console.log(`App listening on ${config.server.host}:${port}!`));
 node_media_server.run();
 thumbnail_generator.start();

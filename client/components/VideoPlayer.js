@@ -22,13 +22,14 @@ export default class VideoPlayer extends React.Component {
                 username: this.props.match.params.username
             }
         }).then(res => {
+            let streamURL = `http://${config.server.host}:` + config.rtmp_server.http.port + '/live/' + res.data.stream_key + '/index.m3u8';
             this.setState({
                 stream: true,
                 videoJsOptions: {
                     autoplay: false,
                     controls: true,
                     sources: [{
-                        src: 'http://127.0.0.1:' + config.rtmp_server.http.port + '/live/' + res.data.stream_key + '/index.m3u8',
+                        src: streamURL,
                         type: 'application/x-mpegURL'
                     }],
                     fluid: true,
