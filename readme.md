@@ -19,7 +19,8 @@ $ ffmpeg --version
 
 ### Prerequisites
  
-####MongoDB
+#### MongoDB
+
  Make sure you have **MongoDB** installed on your system. We use Mongoose for accessing database.
  Check MongoDB docs on how to install MongoDB on your operating system.
  
@@ -29,7 +30,7 @@ $ ffmpeg --version
  
  [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
-####Python 2.7
+#### Python 2.7
 Make sure you have python 2.x installed and added to path.
 
 ### Configuration
