@@ -1,11 +1,11 @@
 const express = require('express'),
     path = require('path'),
-    Session = require('express-session'),
+    session = require('express-session'),
     bodyParse = require('body-parser'),
     passport = require('./auth/passport'),
     mongoose = require('mongoose'),
     middleware = require('connect-ensure-login'),
-    FileStore = require('session-file-store')(Session),
+    MongoStore = require('connect-mongo');
     config = require('./config/default'),
     flash = require('connect-flash'),
     port = config.server.port,
@@ -25,9 +25,10 @@ app.use(require('cookie-parser')());
 app.use(bodyParse.urlencoded({extended: true}));
 app.use(bodyParse.json({extended: true}));
 
-app.use(Session({
-    store: new FileStore({
-        path : 'server/sessions'
+app.use(session({
+    store: MongoStore.create({
+        mongoUrl: 'mongodb://127.0.0.1/nodeStream',
+        ttl: 14 * 24 * 60 * 60 // = 14 days. Default
     }),
     secret: config.server.secret,
     maxAge : Date().now + (60 * 1000 * 30),

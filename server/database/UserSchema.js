@@ -1,5 +1,5 @@
 let mongoose = require('mongoose'),
-    bcrypt   = require('bcrypt-nodejs'),
+    bcrypt   = require('bcryptjs'),
     shortid = require('shortid'),
     Schema = mongoose.Schema;
 
@@ -11,7 +11,7 @@ let UserSchema = new Schema({
 });
 
 UserSchema.methods.generateHash = (password) => {
-    return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+    return bcrypt.hashSync(password, bcrypt.genSaltSync(8));
 };
 
 UserSchema.methods.validPassword = function(password){
