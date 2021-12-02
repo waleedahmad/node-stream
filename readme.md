@@ -17,9 +17,10 @@ $ ffmpeg --version
 # You can download Windows builds from ffmpeg site.
 ```
 
-#### Prerequisites
+### Prerequisites
  
- Make sure you have MongoDB installed on your system. We use Mongoose for accessing database.
+####MongoDB
+ Make sure you have **MongoDB** installed on your system. We use Mongoose for accessing database.
  Check MongoDB docs on how to install MongoDB on your operating system.
  
  [Linux](https://docs.mongodb.com/manual/administration/install-on-linux/) 
@@ -28,7 +29,10 @@ $ ffmpeg --version
  
  [Mac](https://docs.mongodb.com/manual/tutorial/install-mongodb-on-os-x/)
 
-#### Configuration
+####Python 2.7
+Make sure you have python 2.x installed and added to path.
+
+### Configuration
 Change ffmpeg path in node media server configuration to your
 own installed path.
 
