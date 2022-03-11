@@ -40,7 +40,7 @@ own installed path.
 Also change secret string. It will be used for session encryption.
 
 ```
-cd nodeStream && nano /server/config/default.js
+cd nodeStream && nano ./server/config/default.js
 
 const config = {
     server: {
